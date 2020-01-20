@@ -15,12 +15,13 @@
 
 	*{
 		outline: none;
-		/*word-wrap: none;*/
+		word-wrap: none;
 		white-space: nowrap;
 		border: none;
 		padding: 0;
 		margin: 0;
-		font-family: math
+		font-family: math;
+		letter-spacing: 1.13px;
 		/*font-family: monospace;*/
 	}
 
@@ -38,7 +39,9 @@
 	.some,.mostra{
 		overflow: hidden;
 		display: inline-flex;
+
 	}
+	.some{background-color: red;}
 
 	.mostra{
 		/*background-color: blue;*/
@@ -46,7 +49,11 @@
 		/*margin-right: -1.01px;*/
 		/*margin-right: -1.5px;*/
 		/*margin-right: -0.0157px;*/
+		/*margin-right: -0.09px;*/
+		/*background-color: blue*/
+
 	}
+
 
 	.zero{max-width: 0px}
 
@@ -186,7 +193,7 @@ Letícia vai à praia Letícia vai à praia Letícia vai à praia
 		function sSome(div){
 			d = div.querySelectorAll(".some")
 			for(i of d){
-				i.style.width = 0
+				i.style.width = "0px"
 			}
 		}
 
@@ -195,6 +202,7 @@ Letícia vai à praia Letícia vai à praia Letícia vai à praia
 			for(i of d){
 				i.removeAttribute('style')
 				i.style.width = parseInt(i.getAttribute('sw'))
+				// i.style.marginRight=0
 			}
 		}
 
@@ -210,7 +218,7 @@ Letícia vai à praia Letícia vai à praia Letícia vai à praia
 			d = div.querySelectorAll(".mostra")
 			for(i of d){
 				i.style.width = 0
-				j.style.marginRight=-0.5+"px"
+				// j.style.marginRight=-0.5+"px"
 			}
 		}
 
@@ -249,19 +257,20 @@ Letícia vai à praia Letícia vai à praia Letícia vai à praia
 		}
 
 		window.onkeyup=function(e){
+			// b1()
 
 			temp = parseFloat(tm.value)
 			// styl.innerHTML = styl.innerHTML.replace(/transition:.+?;/,"transition: "+(temp/1000)+"s")
 
 			if(e.key == 0){
 				n = -1
-				render()
+				// render()
 			}
 
 			if(e.key == "ArrowRight"){
 
 				n++
-
+				
 				if(n>=eit.length-1)
 					n = eit.length-1
 
@@ -270,12 +279,12 @@ Letícia vai à praia Letícia vai à praia Letícia vai à praia
 					sSome(eit[n])
 					sMostra(eit[n])
 
-					if(n < eit.length-2){
-						setTimeout(()=>{			
-							eit[n].style.display="none"
-							eit[n+1].style.display="inline"
-						},parseInt(tm.value))
-					}
+					// if(n < eit.length-2){
+					// 	setTimeout(()=>{			
+					// 		eit[n].style.display="none"
+					// 		eit[n+1].style.display="inline"
+					// 	},parseInt(tm.value))
+					// }
 				}
 			}
 
@@ -302,7 +311,7 @@ Letícia vai à praia Letícia vai à praia Letícia vai à praia
 	txt.onkeyup=function(e){
 		efeito.innerHTML = this.value
 		n=-1
-		b1()
+		b1() 
 		render()
 	}
 
