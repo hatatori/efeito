@@ -9,36 +9,41 @@
 
 	@font-face {
 		font-family: math;
-		src: url(fonts/cmunrm.ttf);
+		src: url(fonts/cmunbtl.ttf);
 	}
 	
 
 	*{
 		outline: none;
-		/*font-family: "Times New Roman", Times, serif;*/
-		word-wrap: none;
+		/*word-wrap: none;*/
 		white-space: nowrap;
 		border: none;
 		padding: 0;
 		margin: 0;
-		font-family: math
+		/*font-family: math*/
+		font-family: monospace;
+		
 	}
+
 
 
 	body{
 		font-size: 30;
-		overflow-x: hidden;
+		/*overflow-x: hidden;*/
 		/*font-size: 90*/
 	}
 	
 	.some,.mostra{
 		overflow: hidden;
 		display: inline-flex;
-		
 	}
 
 	.mostra{
-		/*background-color: blue*/
+		/*background-color: blue;*/
+		/*margin-right: -1.01px;*/
+		/*margin-right: -1.01px;*/
+		/*margin-right: -1.5px;*/
+		/*margin-right: -0.0157px;*/
 	}
 
 	.zero{max-width: 0px}
@@ -52,6 +57,8 @@
 	label{font-size: 12;vertical-align: middle;}
 	input{vertical-align: middle;}
 	#conteudo{padding: 30}
+	button{font-size: 10; font-family:monospace;padding: 5;border: solid 1px;background-color: orangered; color: white;}
+	input{background-color: rgba(0,0,0,0.1);padding: 5}
 </style>
 
 
@@ -60,30 +67,21 @@
 <!-- @ aparece -->
 
 <div id="conteudo">
-
-	<label onclick="theme()">Tema dark<input type="checkbox" name="" id="tema"></label>
-	<label onclick="themeCenter()">Tema dark<input type="checkbox" name="" id="temaC"></label>
-
-	<br><br>
+	<label onclick="theme()">Tema dark <input type="checkbox" name="" id="tema"></label>
+	<br>
+	<label onclick="themeCenter()">Centro <input type="checkbox" name="" id="temaC"></label>
+	<br>
 	<label>Tempo em ms</label><br>
 	<input id="tm" name="" value="1000" placeholder="tempo em segundos">
+	<br>
+	<button onclick="b1()">b1</button><Br>
+	<textarea spellcheck="false" id="txt" style="width: 100%;height: 100">*Letícia vai à praia Letícia vai à praia Letícia vai à praia*
+Letícia vai à praia Letícia vai à praia Letícia vai à praia
+	</textarea>
 	<br><br>
-	<textarea spellcheck="false" id="txt" style="width: 100%;height: 100">!#negação#!!# do#!!# se#!!# então#!!@p→q@!
-p!#→#!!@ ^ @!q!@'@!
-!#p ^ q'#!!@Exemplo@!
-!#Exemplo#!!@p→q@!
-!#p#!!@José usa o fone@!→!#q#!!@Maria não corre@!
-!@Se @!José usa o fone!#→#!!@, então @!Maria não corre
-!#Se #!José usa o fone!#, então #!!@ e @!Maria!# não#! corre
-</textarea>
-	<br><br>
-	<div id="efeito" class="invisible">!#negação#!!# do#!!# se#!!# então#!!@p→q@!
-p!#→#!!@ ^ @!q!@'@!
-!#p ^ q'#!!@Exemplo@!
-!#Exemplo#!!@p→q@!
-!#p#!!@José usa o fone@!→!#q#!!@Maria não corre@!
-!@Se @!José usa o fone!#→#!!@, então @!Maria não corre
-!#Se #!José usa o fone!#, então #!!@ e @!Maria!# não#! corre
+	<div id="efeito" class="invisible">*Letícia vai à praia Letícia vai à praia Letícia vai à praia*
+Letícia vai à praia Letícia vai à praia Letícia vai à praia
+
 </div>
 
 	<div id="quadro"></div>
@@ -112,6 +110,53 @@ p!#→#!!@ ^ @!q!@'@!
 			document.body.style.textAlign="left"
 	}
 
+	function c1(txt){
+		k = txt.split('')
+		k.pop()
+		k.shift()
+		k = k.map(e=>"!#"+e+"#!").join('')
+		return k
+	}
+
+	function c2(txt){
+		k = txt.split('')
+		k.pop()
+		k.shift()
+		k = k.map(e=>"!@"+e+"@!").join('')
+		return k
+	}
+
+	function d1(txt){
+		k = txt.split('')
+		k.pop()
+		k.shift()
+		k = k.map(e=>"!@"+e+"@!").join('')
+		return k
+	}
+
+	function b1(){
+		k = txt.value.replace(/\|.*?\|/g,e=>c1(e)).replace(/\*.*?\*/g,e=>c2(e))
+		efeito.innerHTML = k
+		render()
+	}
+
+	function b12(txt){
+		//vai
+		k = "$vamos ver neste$".split('')
+		k.pop()
+		k.shift()
+		k = k.map(e=>"!#"+e+"#!").join('')
+		//!#v#!...
+
+		//volta
+		l = "$"+k.replace(/!#|#!/g,'')+"$"
+		// $vamos..$
+
+		//envia 1
+		txt.value = txt.value.replace(/\$.*?\$/g,e=>c1(e))
+
+
+	}
 
 	function render(){
 
@@ -163,8 +208,11 @@ p!#→#!!@ ^ @!q!@'@!
 			d = div.querySelectorAll(".mostra")
 			for(i of d){
 				i.style.width = 0
+				j.style.marginRight=-0.5+"px"
 			}
 		}
+
+		
 
 		function setarTamanhos(){
 			xsome = quadro.querySelectorAll(".some")
@@ -174,6 +222,7 @@ p!#→#!!@ ^ @!q!@'@!
 				i.innerHTML = i.innerHTML.replace(/ /g,"&nbsp;")
 				i.setAttribute("sw",parseInt(i.offsetWidth))
 				i.style.width=i.offsetWidth
+				j.style.marginRight=-0.5+"px"
 			}
 
 			for(j of xmostra){
@@ -211,6 +260,9 @@ p!#→#!!@ ^ @!q!@'@!
 
 				n++
 
+				if(n>=eit.length-1)
+					n = eit.length-1
+
 				if(n <= eit.length-1){
 
 					sSome(eit[n])
@@ -243,12 +295,16 @@ p!#→#!!@ ^ @!q!@'@!
 
 			console.log(n)
 		}
-	}render()
+	}b1();render()
 
 	txt.onkeyup=function(e){
 		efeito.innerHTML = this.value
 		n=-1
+		b1()
 		render()
 	}
 
 </script>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
