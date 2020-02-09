@@ -1,0 +1,155 @@
+<style>
+	*{
+		padding: 0;
+		margin: 0;
+		/*letter-spacing: 0px;*/
+		white-space: nowrap;
+		transition: 1s;
+		font-family: monospace;
+		font-family: cmu serif;
+	}
+	body{
+
+	}
+
+	.m10{margin: 10}
+	.p10{padding: 10}
+
+	.ladoalado div{
+		display: inline-block;
+		overflow: hidden;
+		vertical-align: text-top;
+	}
+
+	/*body{text-align: center;}*/
+
+	.efeitos div{
+		display: inline-block;
+		overflow: hidden;
+		vertical-align: text-top;
+	}
+	/*.aparecer{background-color: red}*/
+
+	.fsize20{font-size: 30}
+</style>
+
+<textarea style="width: 50%;margin:10;height: 100" id="txt">vamos ver [alguma coisa]{outra} coisa aqui[asd]{zxc}</textarea>
+
+<div class="efeitos fsize20 p10">
+	<div id="a">vamos ver [alguma coisa]{outra} coisa aqui</div>
+</div>
+
+<script>
+
+	function sumir(div){
+
+		x = div.innerHTML.replace(/\[.+?\]/g,function(e){
+			tt = e.slice(1,e.length-1).split('')
+			tt = tt.map(g=>'['+g+']').join('')
+			return tt
+		})
+
+		div.innerHTML = x
+
+		div.innerHTML = div.innerHTML.replace(/\[.+?\]/g,e=>"<div class='sumir'>"+e.slice(1,e.length-1)+"</div>")
+		.replace(/{.+?}/g,e=>"<div class='aparecer'>"+e.slice(1,e.length-1)+"</div>")
+
+		aparecer = div.querySelectorAll(".aparecer")
+		ssumir = div.querySelectorAll(".sumir")
+
+		for(i of aparecer){
+
+			w = i.offsetWidth
+			h = i.offsetHeight
+			
+			i.setAttribute('w',i.offsetWidth)
+			i.setAttribute('h',i.offsetHeight)
+			
+			i.style.width = 0
+			i.style.height = h
+		}
+
+		for(i of ssumir){
+
+			w = i.offsetWidth
+			h = i.offsetHeight
+
+			if(i.offsetWidth==0){
+				i.offsetWidth = 10
+				w=10
+				i.style.width = 10
+			}
+
+			i.setAttribute('w',i.offsetWidth)
+			i.setAttribute('h',i.offsetHeight)
+
+			i.style.width = w
+			i.style.height = h
+
+			
+		}
+
+	}	
+
+	function tog(div){
+
+		div.onclick=function(e){
+			
+			if(this.pos == undefined)
+				this.pos = 0
+
+			aparecer = div.querySelectorAll(".aparecer")
+			ssumir = div.querySelectorAll(".sumir")
+
+			if(this.pos%2==0){
+
+				for(i of aparecer) i.style.width=i.getAttribute('w')
+
+					for(i of ssumir) i.style.width=0
+
+				}else{
+					for(i of aparecer) 
+						i.style.width=0;
+
+					for(i of ssumir) 
+						i.style.width=i.getAttribute('w')
+
+				}
+
+				this.pos++
+			}
+		}
+
+		function todos(){
+			ef = document.querySelector(".efeitos")
+			divs = []
+			for(i of ef.children){
+				divs.push(i)
+			}
+			divs.map(e=>{
+				sumir(e);
+				tog(e);
+			})
+		}todos()
+
+		txt.onkeyup=function(e){
+			t = this.value
+
+			x = t.replace(/\[.+?\]/g,function(e){
+				tt = e.slice(1,e.length-1).split('')
+				tt = tt.map(g=>'['+g+']').join('')
+				return tt
+			})
+
+			a.innerHTML = x
+
+			todos()
+		}
+
+	</script>
+
+
+
+
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
