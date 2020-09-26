@@ -85,7 +85,7 @@
 	margin: 0px;
 }
 
-.active .fora{ margin: 20px; }
+.active .fora{ margin: 20px; background-color: white; }
 
 .active .fora .tolltip , .fora:hover .tolltip{
 	top: -28px;
